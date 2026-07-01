@@ -19,7 +19,7 @@ This document explains how to create and manage Instant Access (IA) application 
 - **ConsistencyMode:** Restore points supports 2 consistency modes app consistent and crash consistent. This document is specifically for application consistent mode. 
 - **Instant Access (IA):** Allows immediate restoration of disks from snapshots, with a default duration of 5 hours (configurable between 60 and 300 minutes). Its a boolean property to be enabled at the restore point collection level.
 - **instantAccessDurationMinutes:** Integer property to set InstantAccess duration (in minutes) at the restore point level.
-- **InstantAccessState:** Indicates the access status of all disk restore points within a restore point (possible values are: Pending, Available, InstantAccess, AvailableWithInstantAccess). Detailed table for each of the state is mentioned in step 3 below.
+- **InstantAccessState:[Will be available at a later date]** Indicates the access status of all disk restore points within a restore point (possible values are: Pending, Available, InstantAccess, AvailableWithInstantAccess). Detailed table for each of the state is mentioned in step 3 below.
 - **SnapshotAccessState:** Indicates the access status of single disk restore points within a restore point (possible values are: Pending, Available, InstantAccess, AvailableWithInstantAccess).
   
 ## Steps to be followed
@@ -77,7 +77,7 @@ GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{
   "properties": {
     "instantAccessDurationMinutes": 120,
     "provisioningState": "Succeeded",
-    "instantAccessStatus": "AvailablewithInstantAccess"
+    "instantAccessStatus": "AvailablewithInstantAccess" /* Will be available at a later date */
   }
 }
 ```
@@ -88,7 +88,7 @@ GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{
 |-------------------|-------------|
 | **instantAccessDurationMinutes** |	1 – 300 [default is 300] |
 | **provisioningState** | **Creating** – The restore point is being created.<br> **Succeeded** – The restore point was successfully created and is ready.<br> **Failed** – The creation failed.<br> **Deleting** – The restore point is being deleted.<br> **Cancelled** – The operation was cancelled.<br> **Updating** – The restore point is being updated.<br> **InProgress** – The operation is still ongoing (sometimes seen in older SDKs).<br> |
-| **InstantAccessStatus** | **Pending** – Restore points in this state cannot be used for restore, copy, or offline download. A restore point is marked as Pending if any disk restore point within it has a snapshotAccessState of pending. <br><br>  **Available** – Restore points in this state can be used for restore, copy to a different region, and offline download. A restore point becomes Available when all disk restore points within it have a snapshotAccessState of available. This typically occurs after the instantAccessDuration has expired. <br> <br> **InstantAccess** - Restore points in this state allow fast disk restore but cannot be copied or downloaded. A restore point is marked as InstantAccess when all disk restore points within it have a snapshotAccessState of InstantAccess. <br> <br> **AvailablewithInstantAccess** - Restore points in this state allow fast disk restore, and they can also be copied and downloaded. A restore point is marked as AvailableWithInstantAccess when all disks restore points within it have a snapshotAccessState of AvailableWithInstantAccess. This applies when the instantAccessDuration has not yet expired. |
+| **InstantAccessStatus [Will be available at a later date]** | **Pending** – Restore points in this state cannot be used for restore, copy, or offline download. A restore point is marked as Pending if any disk restore point within it has a snapshotAccessState of pending. <br><br>  **Available** – Restore points in this state can be used for restore, copy to a different region, and offline download. A restore point becomes Available when all disk restore points within it have a snapshotAccessState of available. This typically occurs after the instantAccessDuration has expired. <br> <br> **InstantAccess** - Restore points in this state allow fast disk restore but cannot be copied or downloaded. A restore point is marked as InstantAccess when all disk restore points within it have a snapshotAccessState of InstantAccess. <br> <br> **AvailablewithInstantAccess** - Restore points in this state allow fast disk restore, and they can also be copied and downloaded. A restore point is marked as AvailableWithInstantAccess when all disks restore points within it have a snapshotAccessState of AvailableWithInstantAccess. This applies when the instantAccessDuration has not yet expired. |
 
 ### Step 5: Restore Disk from Disk Restore Point
 Before restoring the disk check the instantAcessStatus at restore point. Depending on the operation you intend to perform, please verify its status against the table in Step 3.
@@ -103,7 +103,7 @@ GET https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{
   "properties": {
     "instantAccessDurationMinutes": 120,
     "provisioningState": "Succeeded",
-    "instantAccessStatus": "AvailablewithInstantAccess"
+    "instantAccessStatus": "AvailablewithInstantAccess" /* Will be available at a later date */
   }
 }
 ```
